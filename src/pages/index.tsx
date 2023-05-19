@@ -1,26 +1,23 @@
 import Head from "next/head";
+import dynamic from "next/dynamic";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 
 import styles from "../styles/home.module.scss";
 
-type HomeProps = {
-  title: string;
-};
+const Map = dynamic(() => import("../components/Map"), { ssr: false });
 
-export default function Home({ title = "Desweather" }: HomeProps) {
+export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>{title} | Your climate friend</title>
+        <title>Desweather | Your climate friend</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Header />
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>Welcome to {title}</h1>
-      </main>
+      <Map />
 
       <Footer />
     </div>
