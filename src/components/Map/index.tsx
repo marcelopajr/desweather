@@ -2,18 +2,24 @@ import { MapContainer, TileLayer, Marker } from "react-leaflet";
 
 import styles from "./styles.module.scss";
 
-export default function Map() {
+type MapProps = {
+  position: [number, number];
+};
+
+export default function Map({ position }: MapProps) {
   return (
-    <MapContainer
-      center={[-3.71, -38.54]}
-      zoom={5}
-      className={styles.container}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <Marker position={[-3.71, -38.54]} />
-    </MapContainer>
+    <div className={styles.container}>
+      <MapContainer
+        center={position === null ? [0, 0] : position}
+        zoom={position === null ? 3 : 5}
+        className={styles.map}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {position && <Marker position={position} />}
+      </MapContainer>
+    </div>
   );
 }
