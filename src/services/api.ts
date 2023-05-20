@@ -60,7 +60,7 @@ export const getOpenWeatherApi = async (
   city: string
 ): Promise<ApiResponse | ApiError> => {
   const { data } = await axios.get<ApiResponse>(
-    baseUrl + `q=${city}&appid=${apiKey}`
+    baseUrl + `q=${city}&appid=${apiKey}&units=metric`
   );
   return data;
 };

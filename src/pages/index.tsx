@@ -43,7 +43,7 @@ export default function Home() {
 
       <Header city={city} setCity={setCity} setWeatherData={setWeatherData} />
 
-      <Map position={position} />
+      <Map position={position} weatherData={weatherData} />
 
       <Footer />
     </div>
