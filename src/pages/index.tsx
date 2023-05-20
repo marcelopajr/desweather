@@ -2,7 +2,7 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { AxiosError, AxiosResponse } from "axios";
-import { WeatherProps, getCityName, getCityWeather } from "../services/api";
+import { WeatherProps, getCityName, getCityWeatherNow } from "../services/api";
 import { Header } from "../components/Header";
 import { DailyForecast } from "../components/DailyForecast";
 import { Footer } from "../components/Footer";
@@ -13,7 +13,7 @@ const Map = dynamic(() => import("../components/Map"), { ssr: false });
 
 export default function Home() {
   const [position, setPosition] = useState<[number, number]>(null);
-  const [weatherData, setWeatherData] = useState(null);
+  const [weatherDataNow, setWeatherDataNow] = useState(null);
   const [city, setCity] = useState<string>("");
 
   const successCallback = async (position) => {
@@ -31,13 +31,13 @@ export default function Home() {
       });
 
     if (userCity) {
-      await getCityWeather(userCity)
+      await getCityWeatherNow(userCity)
         .then((response: AxiosResponse<WeatherProps>) => {
-          if ("coord" in response) setWeatherData(response);
+          if ("coord" in response) setWeatherDataNow(response);
         })
         .catch((error: AxiosError) => {
           console.error(error);
-          setWeatherData(null);
+          setWeatherDataNow(null);
         });
     }
   };
@@ -48,15 +48,15 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (weatherData) {
-      setPosition([weatherData?.coord?.lat, weatherData?.coord?.lon]);
+    if (weatherDataNow) {
+      setPosition([weatherDataNow?.coord?.lat, weatherDataNow?.coord?.lon]);
     } else {
       navigator?.geolocation?.getCurrentPosition(
         successCallback,
         errorCallback
       );
     }
-  }, [weatherData]);
+  }, [weatherDataNow]);
 
   return (
     <div className={styles.container}>
@@ -65,11 +65,15 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header city={city} setCity={setCity} setWeatherData={setWeatherData} />
+      <Header
+        city={city}
+        setCity={setCity}
+        setWeatherData={setWeatherDataNow}
+      />
 
-      <Map position={position} weatherData={weatherData} />
+      <Map position={position} weatherData={weatherDataNow} />
 
-      <DailyForecast />
+      <DailyForecast position={position} />
 
       <Footer />
     </div>

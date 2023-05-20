@@ -56,7 +56,7 @@ type ApiError = {
 const baseUrl = process.env.NEXT_PUBLIC_OPEN_WEATHER_BASE_URL;
 const apiKey = process.env.NEXT_PUBLIC_OPEN_WEATHER_APIKEY;
 
-export const getCityWeather = async (
+export const getCityWeatherNow = async (
   city: string
 ): Promise<ApiResponse | ApiError> => {
   const { data } = await axios.get<ApiResponse>(
@@ -71,6 +71,13 @@ export const getCityName = async (
 ): Promise<ApiResponse | ApiError> => {
   const { data } = await axios.get<ApiResponse>(
     baseUrl + `/geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=${apiKey}`
+  );
+  return data;
+};
+
+export const getCityWeatherDaily = async (lat: number, lon: number) => {
+  const { data } = await axios.get(
+    `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min&timezone=auto`
   );
   return data;
 };

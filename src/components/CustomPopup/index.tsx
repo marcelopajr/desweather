@@ -37,12 +37,13 @@ export function CustomPopup({ weatherData }: CustomPopupProps) {
             </div>
           </div>
 
-          <div>
+          <div className={styles.weatherExtraInfo}>
             <p>
-              Min: {weatherData?.main?.temp_min?.toFixed()}
-              &deg;C | Max: {weatherData?.main?.temp_max?.toFixed()}
-              &deg;C | Humidity: {weatherData?.main?.humidity}%
+              Feels Like: {weatherData?.main?.feels_like?.toFixed()}
+              &deg;C
             </p>
+            <p>|</p>
+            <p>Humidity: {weatherData?.main?.humidity}%</p>
           </div>
         </div>
       ) : (

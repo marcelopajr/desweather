@@ -69,3 +69,16 @@ a {
 button {
   cursor: pointer;
 }
+
+.animeUp {
+  transform: translateY(20px);
+  opacity: 0;
+  animation: animeUp 0.3s forwards;
+}
+
+@keyframes animeUp {
+  to {
+    transform: initial;
+    opacity: initial;
+  }
+}
