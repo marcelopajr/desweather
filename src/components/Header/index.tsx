@@ -1,6 +1,6 @@
 import { ChangeEvent } from "react";
-import { WeatherProps, getOpenWeatherApi } from "../../services/api";
 import { AxiosError, AxiosResponse } from "axios";
+import { WeatherProps, getCityWeather } from "../../services/api";
 
 import styles from "./styles.module.scss";
 
@@ -14,7 +14,7 @@ export function Header({ city, setCity, setWeatherData }: HeaderProps) {
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    await getOpenWeatherApi(city)
+    await getCityWeather(city)
       .then((response: AxiosResponse<WeatherProps>) => {
         if ("coord" in response) setWeatherData(response);
       })

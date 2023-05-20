@@ -10,23 +10,4 @@
   h2 {
     font-size: 1.1rem;
   }
-
-  .popupContainer {
-    .weatherMainInfo {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      justify-items: center;
-      margin: 1rem 0;
-
-      h1 {
-        font-size: 2.2rem;
-        color: var(--purple-300);
-      }
-
-      .weatherIcon img {
-        width: 40px;
-      }
-    }
-  }
 }

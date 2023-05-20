@@ -56,11 +56,21 @@ type ApiError = {
 const baseUrl = process.env.NEXT_PUBLIC_OPEN_WEATHER_BASE_URL;
 const apiKey = process.env.NEXT_PUBLIC_OPEN_WEATHER_APIKEY;
 
-export const getOpenWeatherApi = async (
+export const getCityWeather = async (
   city: string
 ): Promise<ApiResponse | ApiError> => {
   const { data } = await axios.get<ApiResponse>(
-    baseUrl + `q=${city}&appid=${apiKey}&units=metric`
+    baseUrl + `/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
+  );
+  return data;
+};
+
+export const getCityName = async (
+  lat: string,
+  lon: string
+): Promise<ApiResponse | ApiError> => {
+  const { data } = await axios.get<ApiResponse>(
+    baseUrl + `/geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=${apiKey}`
   );
   return data;
 };
