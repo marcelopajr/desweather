@@ -1,0 +1,17 @@
+.container {
+  width: 45rem;
+  height: 12rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--gray-50);
+  border: 1px solid #eaeaea;
+  border-radius: 0.5rem;
+  -webkit-box-shadow: 7px 7px 20px -12px rgba(13, 12, 34, 0.7);
+  -moz-box-shadow: 7px 7px 20px -12px rgba(13, 12, 34, 0.7);
+  box-shadow: 7px 7px 20px -12px rgba(13, 12, 34, 0.7);
+
+  position: absolute;
+  bottom: 10rem;
+  z-index: 500;
+}

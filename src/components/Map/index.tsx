@@ -40,7 +40,7 @@ export default function Map({ position, weatherData }: MapProps) {
       <MapContainer
         id="map"
         center={position === null ? [0, 0] : position}
-        zoom={position === null ? 3 : 5}
+        zoom={position === null ? 3 : 8}
         className={styles.map}
       >
         <TileLayer

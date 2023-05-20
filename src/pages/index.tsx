@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { AxiosError, AxiosResponse } from "axios";
 import { WeatherProps, getCityName, getCityWeather } from "../services/api";
 import { Header } from "../components/Header";
+import { DailyForecast } from "../components/DailyForecast";
 import { Footer } from "../components/Footer";
 
 import styles from "../styles/home.module.scss";
@@ -67,6 +68,8 @@ export default function Home() {
       <Header city={city} setCity={setCity} setWeatherData={setWeatherData} />
 
       <Map position={position} weatherData={weatherData} />
+
+      <DailyForecast />
 
       <Footer />
     </div>

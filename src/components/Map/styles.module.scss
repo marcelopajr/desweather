@@ -1,10 +1,13 @@
 .container {
   width: 100%;
   height: calc(100vh - 12rem);
+  background: var(--gray-100);
 
   .map {
-    width: 100%;
+    max-width: 80rem;
     height: 100%;
+    display: flex;
+    margin: 0 auto;
   }
 
   h2 {
