@@ -14,11 +14,12 @@ const Map = dynamic(() => import("../components/Map"), { ssr: false });
 export default function Home() {
   const [position, setPosition] = useState<[number, number]>(null);
   const [weatherDataNow, setWeatherDataNow] = useState(null);
+  const [userLocationAllowed, setUserLocationAllowed] =
+    useState<boolean>(false);
   const [city, setCity] = useState<string>("");
 
   const successCallback = async (position) => {
-    setPosition([position?.coords?.latitude, position?.coords?.longitude]);
-
+    setUserLocationAllowed(true);
     let userCity: string;
 
     await getCityName(position?.coords?.latitude, position?.coords?.longitude)
@@ -71,7 +72,11 @@ export default function Home() {
         setWeatherData={setWeatherDataNow}
       />
 
-      <Map position={position} weatherData={weatherDataNow} />
+      <Map
+        userLocationAllowed={userLocationAllowed}
+        position={position}
+        weatherData={weatherDataNow}
+      />
 
       <DailyForecast position={position} />
 
