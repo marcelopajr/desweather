@@ -11,7 +11,7 @@ export function CustomPopup({ weatherData }: CustomPopupProps) {
   return (
     <Popup>
       {weatherData !== null ? (
-        <div className={styles.popupContainer}>
+        <div className={`${styles.popupContainer} animeUp`}>
           <h2>Live Weather Condition</h2>
 
           <div className={styles.weatherMainInfo}>

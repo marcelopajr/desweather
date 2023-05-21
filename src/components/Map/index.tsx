@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
+import { useEffect, useRef } from "react";
+import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
 import { WeatherProps } from "../../services/api";
 import { CustomPopup } from "../CustomPopup";
 
@@ -11,29 +11,17 @@ type MapProps = {
 };
 
 export default function Map({ position, weatherData }: MapProps) {
-  function LocationMarker() {
-    const map = useMapEvents({
-      click() {
-        map.locate();
-      },
-      locationfound() {
-        map.flyTo(position, map.getZoom());
-      },
-    });
+  const markerRef = useRef(null);
 
-    return position === null ? null : (
-      <Marker position={position}>
-        <CustomPopup weatherData={weatherData} />
-      </Marker>
-    );
+  function RecenterAutomatically({ position }) {
+    const map = useMap();
+
+    useEffect(() => {
+      map.flyTo(position, map.getZoom());
+    }, [position, map]);
+
+    return null;
   }
-
-  useEffect(() => {
-    if (position) {
-      const map = document.getElementById("map");
-      map?.click();
-    }
-  }, [position]);
 
   return (
     <div className={styles.container}>
@@ -41,6 +29,12 @@ export default function Map({ position, weatherData }: MapProps) {
         id="map"
         center={position === null ? [0, 0] : position}
         zoom={position === null ? 3 : 8}
+        doubleClickZoom={false}
+        whenReady={() => {
+          setTimeout(() => {
+            markerRef.current.openPopup();
+          }, 1000);
+        }}
         className={styles.map}
       >
         <TileLayer
@@ -48,10 +42,11 @@ export default function Map({ position, weatherData }: MapProps) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {position && (
-          <Marker position={position}>
-            <LocationMarker />
+          <Marker ref={markerRef} position={position}>
+            <CustomPopup weatherData={weatherData} />
           </Marker>
         )}
+        <RecenterAutomatically position={position} />
       </MapContainer>
     </div>
   );

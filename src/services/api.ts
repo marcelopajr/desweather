@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export type WeatherProps = {
+export interface WeatherProps {
   coord: {
     lon: number;
     lat: number;
@@ -42,7 +42,7 @@ export type WeatherProps = {
   id: number;
   name: string;
   cod: number;
-};
+}
 
 type ApiResponse = {
   data: WeatherProps;
