@@ -12,16 +12,16 @@ export function CustomPopup({ weatherData }: CustomPopupProps) {
     return (
       <Popup>
         <div className={`${styles.popupContainer} animeUp`}>
-          <h2>Live Weather Condition</h2>
+          <h2 id="popupTitle">Live Weather Condition</h2>
 
           <div className={styles.weatherMainInfo}>
             <div>
-              <h1>
+              <h1 id="wheaterTemperature">
                 {weatherData?.main?.temp?.toFixed()}
                 &deg;C
               </h1>
 
-              <h3>
+              <h3 id="cityAndCountry">
                 {weatherData?.name} | {weatherData?.sys?.country}
               </h3>
             </div>

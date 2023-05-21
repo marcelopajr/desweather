@@ -42,6 +42,7 @@ export function Header({ city, setCity, setWeatherData }: HeaderProps) {
             </g>
           </svg>
           <input
+            id="inputCity"
             placeholder="Enter a city"
             type="search"
             value={city}

@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }) {
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
         crossOrigin=""
       />
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </>
   );
 }

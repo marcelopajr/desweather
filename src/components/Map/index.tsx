@@ -68,13 +68,13 @@ export default function Map({
       <div className={`${styles.errorUserPosition} animeUp`}>
         <img src="/position.svg" alt="Position Icon" />
 
-        <h1>Share your location</h1>
+        <h1 id="shareLocationInfo">Share your location</h1>
         <p>
           (Please allow access to your location from settings and refresh
           screen)
         </p>
         <span>or</span>
-        <h1>Search for a city</h1>
+        <h1 id="enterCityInfo">Search for a city</h1>
       </div>
     );
   }

@@ -50,7 +50,7 @@ export function DailyForecast({ position }: DailyForecastProps) {
 
   if (weatherDataDaily) {
     return (
-      <div className={`${styles.container} animeUp`}>
+      <div id="weatherDaily" className={`${styles.container} animeUp`}>
         {weatherDataDaily?.map(
           (
             dailyData: {
