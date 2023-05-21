@@ -46,4 +46,12 @@ $ npm run dev
 $ npm run cy:open
 ```
 
+⚠️ You also need to create an account at [OpenWeather](https://openweathermap.org/api) to get an api key access.<br/>
+After that, create a <b>.env.local</b> file on project root. and add the following content:
+
+```sh
+NEXT_PUBLIC_OPEN_WEATHER_BASE_URL=https://api.openweathermap.org
+NEXT_PUBLIC_OPEN_WEATHER_APIKEY=YOUR_API_KEY
+```
+
 Have fun!

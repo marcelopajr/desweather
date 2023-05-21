@@ -87,6 +87,8 @@ export default function Home() {
     <div className={styles.container}>
       <Head>
         <title>Desweather | Your climate friend</title>
+        <meta property="og:image" content="/favicon.ico" key="ogimage" />
+        <meta property="og:site_name" content="Desweather" key="ogsitename" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
