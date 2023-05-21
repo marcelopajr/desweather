@@ -33,6 +33,8 @@ export function DailyForecast({ position }: DailyForecastProps) {
           console.error(error);
           setWeatherDataDaily(null);
         });
+    } else {
+      setWeatherDataDaily(null);
     }
   }, [position]);
 

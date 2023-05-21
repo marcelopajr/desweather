@@ -4,7 +4,7 @@
   height: 6rem;
   border-bottom: 1px solid var(--gray-100);
 
-  @media (max-width: 460px) {
+  @media (max-width: 780px) {
     height: 11rem;
   }
 
@@ -15,8 +15,9 @@
     display: flex;
     align-items: center;
 
-    @media (max-width: 460px) {
+    @media (max-width: 780px) {
       flex-direction: column;
+      padding: 2rem;
 
       p {
         display: none;
@@ -25,10 +26,6 @@
       .search {
         margin: 1rem auto 0 auto;
       }
-    }
-
-    @media (max-width: 780px) {
-      padding: 2rem;
     }
 
     p {

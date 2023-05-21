@@ -17,16 +17,12 @@
   justify-items: center;
   padding: 1.5rem;
 
-  @media (max-width: 460px) {
+  @media (max-width: 780px) {
     position: static;
     grid-template-columns: 1fr 1fr 1fr;
     border: none;
     box-shadow: none;
     margin: 2rem;
     padding: 0;
-  }
-
-  @media (max-width: 780px) {
-    padding: 0.5rem;
   }
 }

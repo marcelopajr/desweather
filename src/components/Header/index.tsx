@@ -1,5 +1,6 @@
 import { ChangeEvent } from "react";
 import { AxiosError, AxiosResponse } from "axios";
+import { toast } from "react-toastify";
 import { WeatherProps, getCityWeatherNow } from "../../services/api";
 
 import styles from "./styles.module.scss";
@@ -20,6 +21,12 @@ export function Header({ city, setCity, setWeatherData }: HeaderProps) {
       })
       .catch((error: AxiosError) => {
         console.error(error);
+        toast.error(
+          <div>
+            City not found!
+            <br /> Displaying your location
+          </div>
+        );
         setWeatherData(null);
       });
   };

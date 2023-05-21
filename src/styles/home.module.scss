@@ -5,3 +5,13 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.notification {
+  @media (min-width: 481px) and (max-width: 780px) {
+    top: 13rem;
+  }
+
+  @media (min-width: 781px) and (max-width: 1680px) {
+    top: 8rem;
+  }
+}

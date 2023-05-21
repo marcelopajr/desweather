@@ -2,6 +2,8 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { AxiosError, AxiosResponse } from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { WeatherProps, getCityName, getCityWeatherNow } from "../services/api";
 import { Header } from "../components/Header";
 import { DailyForecast } from "../components/DailyForecast";
@@ -28,6 +30,12 @@ export default function Home() {
       })
       .catch((error: AxiosError) => {
         console.error(error);
+        toast.error(
+          <div>
+            City not found!
+            <br /> Displaying your location
+          </div>
+        );
         userCity = "";
       });
 
@@ -71,6 +79,8 @@ export default function Home() {
         setCity={setCity}
         setWeatherData={setWeatherDataNow}
       />
+
+      <ToastContainer className={styles.notification} />
 
       <Map
         userLocationAllowed={userLocationAllowed}

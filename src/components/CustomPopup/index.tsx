@@ -8,9 +8,9 @@ type CustomPopupProps = {
 };
 
 export function CustomPopup({ weatherData }: CustomPopupProps) {
-  return (
-    <Popup>
-      {weatherData !== null ? (
+  if (weatherData)
+    return (
+      <Popup>
         <div className={`${styles.popupContainer} animeUp`}>
           <h2>Live Weather Condition</h2>
 
@@ -46,12 +46,6 @@ export function CustomPopup({ weatherData }: CustomPopupProps) {
             <p>Humidity: {weatherData?.main?.humidity}%</p>
           </div>
         </div>
-      ) : (
-        <h2>
-          We were unable to display the weather for this city. Try again in a
-          few minutes.
-        </h2>
-      )}
-    </Popup>
-  );
+      </Popup>
+    );
 }
