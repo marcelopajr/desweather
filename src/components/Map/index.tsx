@@ -17,14 +17,14 @@ type MapProps = {
   userLocationAllowed: boolean;
   position: [number, number];
   weatherData: WeatherProps;
-  setCity: React.Dispatch<React.SetStateAction<string>>;
+  setCityClicked: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export default function Map({
   userLocationAllowed,
   position,
   weatherData,
-  setCity,
+  setCityClicked,
 }: MapProps) {
   const markerRef = useRef(null);
 
@@ -43,13 +43,13 @@ export default function Map({
       click(e) {
         getCityName(e?.latlng?.lat, e?.latlng?.lng)
           .then((response: AxiosResponse) => {
-            if ("name" in response[0]) setCity(response?.[0]?.name);
+            if ("name" in response[0]) setCityClicked(response?.[0]?.name);
             else toast.error(<div>City not found!</div>);
           })
           .catch((error: AxiosError) => {
             console.error(error);
             toast.error(<div>City not found!</div>);
-            setCity("");
+            setCityClicked("");
           });
       },
     });

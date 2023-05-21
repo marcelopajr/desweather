@@ -16,6 +16,7 @@ const Map = dynamic(() => import("../components/Map"), { ssr: false });
 export default function Home() {
   const [position, setPosition] = useState<[number, number]>(null);
   const [city, setCity] = useState<string>("");
+  const [cityClicked, setCityClicked] = useState<string>("");
   const [weatherDataNow, setWeatherDataNow] = useState(null);
   const [userLocationAllowed, setUserLocationAllowed] =
     useState<boolean>(false);
@@ -63,8 +64,8 @@ export default function Home() {
   }, [weatherDataNow]);
 
   useEffect(() => {
-    if (city) {
-      getCityWeatherNow(city)
+    if (cityClicked) {
+      getCityWeatherNow(cityClicked)
         .then((response: AxiosResponse<WeatherProps>) => {
           if ("coord" in response) setWeatherDataNow(response);
         })
@@ -74,7 +75,7 @@ export default function Home() {
           setWeatherDataNow(null);
         });
     }
-  }, [city]);
+  }, [cityClicked]);
 
   return (
     <div className={styles.container}>
@@ -95,7 +96,7 @@ export default function Home() {
         userLocationAllowed={userLocationAllowed}
         position={position}
         weatherData={weatherDataNow}
-        setCity={setCity}
+        setCityClicked={setCityClicked}
       />
 
       <DailyForecast position={position} />
