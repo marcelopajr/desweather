@@ -15,10 +15,10 @@ const Map = dynamic(() => import("../components/Map"), { ssr: false });
 
 export default function Home() {
   const [position, setPosition] = useState<[number, number]>(null);
+  const [city, setCity] = useState<string>("");
   const [weatherDataNow, setWeatherDataNow] = useState(null);
   const [userLocationAllowed, setUserLocationAllowed] =
     useState<boolean>(false);
-  const [city, setCity] = useState<string>("");
 
   const successCallback = async (position) => {
     setUserLocationAllowed(true);
@@ -30,12 +30,7 @@ export default function Home() {
       })
       .catch((error: AxiosError) => {
         console.error(error);
-        toast.error(
-          <div>
-            City not found!
-            <br /> Displaying your location
-          </div>
-        );
+        toast.error(<div>City not found!</div>);
         userCity = "";
       });
 
@@ -46,6 +41,7 @@ export default function Home() {
         })
         .catch((error: AxiosError) => {
           console.error(error);
+          toast.error(<div>City not found!</div>);
           setWeatherDataNow(null);
         });
     }
@@ -57,15 +53,28 @@ export default function Home() {
   };
 
   useEffect(() => {
+    navigator?.geolocation?.getCurrentPosition(successCallback, errorCallback);
+  }, []);
+
+  useEffect(() => {
     if (weatherDataNow) {
       setPosition([weatherDataNow?.coord?.lat, weatherDataNow?.coord?.lon]);
-    } else {
-      navigator?.geolocation?.getCurrentPosition(
-        successCallback,
-        errorCallback
-      );
     }
   }, [weatherDataNow]);
+
+  useEffect(() => {
+    if (city) {
+      getCityWeatherNow(city)
+        .then((response: AxiosResponse<WeatherProps>) => {
+          if ("coord" in response) setWeatherDataNow(response);
+        })
+        .catch((error: AxiosError) => {
+          console.error(error);
+          toast.error(<div>City not found!</div>);
+          setWeatherDataNow(null);
+        });
+    }
+  }, [city]);
 
   return (
     <div className={styles.container}>
@@ -86,6 +95,7 @@ export default function Home() {
         userLocationAllowed={userLocationAllowed}
         position={position}
         weatherData={weatherDataNow}
+        setCity={setCity}
       />
 
       <DailyForecast position={position} />

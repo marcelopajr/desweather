@@ -21,12 +21,7 @@ export function Header({ city, setCity, setWeatherData }: HeaderProps) {
       })
       .catch((error: AxiosError) => {
         console.error(error);
-        toast.error(
-          <div>
-            City not found!
-            <br /> Displaying your location
-          </div>
-        );
+        toast.error(<div>City not found!</div>);
         setWeatherData(null);
       });
   };

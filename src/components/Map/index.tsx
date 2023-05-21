@@ -1,6 +1,14 @@
 import { useEffect, useRef } from "react";
-import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
-import { WeatherProps } from "../../services/api";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  useMap,
+  useMapEvents,
+} from "react-leaflet";
+import { AxiosError, AxiosResponse } from "axios";
+import { toast } from "react-toastify";
+import { WeatherProps, getCityName } from "../../services/api";
 import { CustomPopup } from "../CustomPopup";
 
 import styles from "./styles.module.scss";
@@ -9,12 +17,14 @@ type MapProps = {
   userLocationAllowed: boolean;
   position: [number, number];
   weatherData: WeatherProps;
+  setCity: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export default function Map({
   userLocationAllowed,
   position,
   weatherData,
+  setCity,
 }: MapProps) {
   const markerRef = useRef(null);
 
@@ -22,8 +32,27 @@ export default function Map({
     const map = useMap();
 
     useEffect(() => {
-      map?.flyTo(position, map.getZoom());
+      map?.setView(position, map.getZoom());
     }, [position, map]);
+
+    return null;
+  }
+
+  function LocationFinder() {
+    useMapEvents({
+      click(e) {
+        getCityName(e?.latlng?.lat, e?.latlng?.lng)
+          .then((response: AxiosResponse) => {
+            if ("name" in response[0]) setCity(response?.[0]?.name);
+            else toast.error(<div>City not found!</div>);
+          })
+          .catch((error: AxiosError) => {
+            console.error(error);
+            toast.error(<div>City not found!</div>);
+            setCity("");
+          });
+      },
+    });
 
     return null;
   }
@@ -69,6 +98,7 @@ export default function Map({
             </Marker>
           )}
           <RecenterAutomatically position={position} />
+          <LocationFinder />
         </MapContainer>
       </div>
     );

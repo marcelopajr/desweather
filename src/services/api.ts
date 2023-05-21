@@ -66,8 +66,8 @@ export const getCityWeatherNow = async (
 };
 
 export const getCityName = async (
-  lat: string,
-  lon: string
+  lat: number,
+  lon: number
 ): Promise<ApiResponse | ApiError> => {
   const { data } = await axios.get<ApiResponse>(
     baseUrl + `/geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=${apiKey}`
