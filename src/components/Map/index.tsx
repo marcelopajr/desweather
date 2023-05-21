@@ -43,8 +43,14 @@ export default function Map({
       click(e) {
         getCityName(e?.latlng?.lat, e?.latlng?.lng)
           .then((response: AxiosResponse) => {
-            if ("name" in response[0]) setCityClicked(response?.[0]?.name);
-            else toast.error(<div>City not found!</div>);
+            if ("name" in response[0]) {
+              setCityClicked(response?.[0]?.name);
+              setTimeout(() => {
+                markerRef.current.openPopup();
+              }, 500);
+            } else {
+              toast.error(<div>City not found!</div>);
+            }
           })
           .catch((error: AxiosError) => {
             console.error(error);
@@ -79,7 +85,7 @@ export default function Map({
         <MapContainer
           id="map"
           center={position === null ? [0, 0] : position}
-          zoom={position === null ? 3 : 8}
+          zoom={position === null ? 3 : 10}
           doubleClickZoom={false}
           whenReady={() => {
             setTimeout(() => {

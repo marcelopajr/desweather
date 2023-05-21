@@ -24,6 +24,8 @@ export function Header({ city, setCity, setWeatherData }: HeaderProps) {
         toast.error(<div>City not found!</div>);
         setWeatherData(null);
       });
+
+    setCity("");
   };
 
   return (

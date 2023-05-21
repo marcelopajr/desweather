@@ -21,7 +21,7 @@ export default function Home() {
   const [userLocationAllowed, setUserLocationAllowed] =
     useState<boolean>(false);
 
-  const successCallback = async (position) => {
+  const handleUserLocationAllowed = async (position) => {
     setUserLocationAllowed(true);
     let userCity: string;
 
@@ -48,13 +48,19 @@ export default function Home() {
     }
   };
 
-  const errorCallback = (error: { code: number; message: string }) => {
+  const handleUserLocationDenied = (error: {
+    code: number;
+    message: string;
+  }) => {
     setPosition(null);
     throw error;
   };
 
   useEffect(() => {
-    navigator?.geolocation?.getCurrentPosition(successCallback, errorCallback);
+    navigator?.geolocation?.getCurrentPosition(
+      handleUserLocationAllowed,
+      handleUserLocationDenied
+    );
   }, []);
 
   useEffect(() => {
