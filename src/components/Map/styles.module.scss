@@ -3,6 +3,10 @@
   height: calc(100vh - 12rem);
   background: var(--gray-100);
 
+  @media (max-width: 460px) {
+    height: calc(70vh - 12rem);
+  }
+
   .map {
     max-width: 70rem;
     height: 100%;
